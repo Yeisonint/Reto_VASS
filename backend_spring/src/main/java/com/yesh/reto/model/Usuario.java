@@ -5,26 +5,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Usuario {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	protected long id;
 	
 	@Column(name="usuario")
-	private String usuario;
+	protected String usuario;
 	@Column(name="clave")
-	private String clave;
+	protected String clave;
 	@Column(name="salario")
-	private long salario;
+	protected long salario;
 	@Column(name="porcentaje")
-	private float porcentaje;
+	protected float porcentaje;
 	@Column(name="rol")
-	private String rol;
+	protected String rol;
 	@Column(name="activo")
-	private boolean activo;
+	protected boolean activo;
 	
 	public Usuario() {
 		
