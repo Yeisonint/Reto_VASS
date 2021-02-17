@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Ingresar</title>
+<!-- Bootstrap -->
+<link
+	href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css"
+	rel="stylesheet" crossorigin="anonymous">
+<script
+	src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"
+	crossorigin="anonymous"></script>
+<!-- Jquery -->
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Estilo para login -->
+<link href="./public/login.css" rel="stylesheet">
+</head>
+<body>
+<div class=" h-100 d-flex justify-content-center align-items-center">
+  <div>
+      <h1>Ingresar</h1>
+      <form th:action="@{/login}" method="post">
+		<div class="form-group">
+			<input type="text" class="form-control" id="username" name="username" placeholder="usuario">
+		</div>
+		<div class="form-group">
+			<input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+		</div>
+		<p th:if="${loginError}" class="error">Usuario o contraseña incorrectos</p>
+		<button type="submit" class="btn btn-primary">Ingresar</button>
+	</form>
+  </div>
+</div>
+
+</body>
+</html>
+
