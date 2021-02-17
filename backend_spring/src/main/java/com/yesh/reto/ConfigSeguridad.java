@@ -6,9 +6,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +29,8 @@ import com.yesh.reto.repository.RepositorioJefe;
 
 @SuppressWarnings("deprecation")
 @Configuration
+@ComponentScan("com.yesh")
+@EnableWebSecurity
 public class ConfigSeguridad extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -72,48 +76,24 @@ public class ConfigSeguridad extends WebSecurityConfigurerAdapter {
 		  // Añadir a todos los usuarios activos de la base de datos
 		  auth.jdbcAuthentication().dataSource(dataSource)
 	        .usersByUsernameQuery(
-	        		"SELECT USUARIO AS PRINCIPAL, CLAVE AS CREDENTIALS, ACTIVO AS ENABLED FROM ADMINISTRADORES "
-	        		+ "UNION ALL\n"
-	        		+ "SELECT USUARIO AS PRINCIPAL, CLAVE AS CREDENTIALS, ACTIVO AS ENABLED FROM JEFES "
-	        		+ "UNION ALL\n"
-	        		+ "SELECT USUARIO AS PRINCIPAL, CLAVE AS CREDENTIALS, ACTIVO AS ENABLED FROM EMPLEADOS "
-	        		+ "WHERE USUARIO=?"
-	        )
-	        .authoritiesByUsernameQuery(
-	        		//select username as principal, authority as role from authorities where username = ?
-	        		"SELECT USUARIO AS PRINCIPAL, ROL AS ROLE FROM ADMINISTRADORES "
-	    	    	+ "UNION ALL\n"
-	    	    	+ "SELECT USUARIO AS PRINCIPAL, ROL AS ROLE FROM JEFES "
-	    	    	+ "UNION ALL\n"
-	    	    	+ "SELECT USUARIO AS PRINCIPAL, ROL AS ROLE FROM EMPLEADOS "
-	    	    	+ "WHERE USUARIO=?"
-	        		)
-	        .rolePrefix("ROLE_")
-	        .passwordEncoder(passwordEncoder());
+	        		"SELECT USUARIO AS PRINCIPAL, CLAVE AS CREDENTIALS, ACTIVO AS ENABLED FROM ADMINISTRADORES WHERE USUARIO=?"
+	        ).authoritiesByUsernameQuery(
+	        		"SELECT USUARIO AS PRINCIPAL, ROL AS ROLE FROM ADMINISTRADORES WHERE USUARIO=?"
+	        		).rolePrefix("ROLE_").passwordEncoder(passwordEncoder());
+		  
+		  auth.jdbcAuthentication().dataSource(dataSource)
+	        .usersByUsernameQuery(
+	        		"SELECT USUARIO AS PRINCIPAL, CLAVE AS CREDENTIALS, ACTIVO AS ENABLED FROM JEFES WHERE USUARIO=?"
+	        ).authoritiesByUsernameQuery(
+	        		"SELECT USUARIO AS PRINCIPAL, ROL AS ROLE FROM JEFES WHERE USUARIO=?"
+	        		).rolePrefix("ROLE_").passwordEncoder(passwordEncoder());
+		  
+		  auth.jdbcAuthentication().dataSource(dataSource)
+	        .usersByUsernameQuery(
+	        		"SELECT USUARIO AS PRINCIPAL, CLAVE AS CREDENTIALS, ACTIVO AS ENABLED FROM EMPLEADOS WHERE USUARIO=?"
+	        ).authoritiesByUsernameQuery(
+	        		"SELECT USUARIO AS PRINCIPAL, ROL AS ROLE FROM EMPLEADOS WHERE USUARIO=?"
+	        		).rolePrefix("ROLE_").passwordEncoder(passwordEncoder());
 	  }
-	  
-//	    @Bean
-//	    @Override
-//	    public UserDetailsService userDetailsService() {
-//	 
-//	        //User Role
-//	        UserDetails theUser = User.withUsername("sergey")
-//	                        .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode)
-//	                        .password("12345678").roles("USER").build();
-//	        
-//	        //Manager Role 
-//	        UserDetails theManager = User.withUsername("john")
-//	                .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder()::encode)
-//	                .password("87654321").roles("MANAGER").build();
-//	        
-//	  
-//	        InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
-//	              
-//	        userDetailsManager.createUser(theUser);
-//	        userDetailsManager.createUser(theManager);
-//	        
-//	        return userDetailsManager;
-//	    }
-	  
-    
+
 }
