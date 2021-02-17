@@ -49,10 +49,27 @@ public class ConfigSeguridad extends WebSecurityConfigurerAdapter {
 	  @Override
 	  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		  
-		  auth.inMemoryAuthentication().withUser("user").password("{noop}pass").roles("USER");
+		  // Añadir usuario que no esta en la base de datos como administrador (Pruebas)
+		  auth.inMemoryAuthentication().withUser("user").password("{noop}pass").roles("Administrador");
+		  
+		  // Añadir los administradores de la tabla de la
 		  auth.jdbcAuthentication().dataSource(dataSource)
-	        .usersByUsernameQuery("select USUARIO, CLAVE, ACTIVO from ADMINISTRADORES where USUARIO=?")
-	        .authoritiesByUsernameQuery("select USUARIO, ROL from ADMINISTRADORES where USUARIO=?")
+	        .usersByUsernameQuery(
+	        		"SELECT USUARIO, CLAVE, ACTIVO FROM ADMINISTRADORES "
+	        		+ "UNION ALL\n"
+	        		+ "SELECT USUARIO, CLAVE, ACTIVO FROM JEFES "
+	        		+ "UNION ALL\n"
+	        		+ "SELECT USUARIO, CLAVE, ACTIVO FROM EMPLEADOS "
+	        		+ "WHERE USUARIO=?"
+	        )
+	        .authoritiesByUsernameQuery(
+	        		"SELECT USUARIO, ROL FROM ADMINISTRADORES "
+	    	    	+ "UNION ALL\n"
+	    	    	+ "SELECT USUARIO, ROL FROM JEFES "
+	    	    	+ "UNION ALL\n"
+	    	    	+ "SELECT USUARIO, ROL FROM EMPLEADOS "
+	    	    	+ "WHERE USUARIO=?"
+	        		)
 	        .passwordEncoder(passwordEncoder());
 	  }
     
