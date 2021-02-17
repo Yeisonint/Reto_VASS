@@ -3,18 +3,18 @@ package com.yesh.reto.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Entity
+@Entity(name="Empleados")
 @Table(name="Empleados")
 public class Empleado extends Usuario {
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idJefe")
+	
+	//@JoinColumn(name = "idJefe")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonBackReference
 	private Jefe jefeAsignado;
 
@@ -28,7 +28,7 @@ public class Empleado extends Usuario {
 	}
 
 	public Jefe getJefeAsignado() {
-		return jefeAsignado;
+		return this.jefeAsignado;
 	}
 
 	public void setJefeAsignado(Jefe jefeAsignado) {

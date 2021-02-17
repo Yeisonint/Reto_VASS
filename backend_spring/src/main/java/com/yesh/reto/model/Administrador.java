@@ -3,7 +3,7 @@ package com.yesh.reto.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name="Administradores")
 @Table(name="Administradores")
 public class Administrador extends Usuario {
 	

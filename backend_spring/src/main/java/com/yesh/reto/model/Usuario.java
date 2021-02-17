@@ -1,21 +1,19 @@
 package com.yesh.reto.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
 public class Usuario {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	protected long id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	protected long Id;
 	@Column(name="usuario")
 	protected String usuario;
 	@Column(name="clave")
@@ -44,11 +42,11 @@ public class Usuario {
 	}
 	
 	public long getId() {
-		return id;
+		return this.Id;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.Id=id;
 	}
 
 	public String getUsuario() {

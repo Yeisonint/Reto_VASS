@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yesh.reto.model.Empleado;
+import com.yesh.reto.model.Jefe;
 import com.yesh.reto.repository.RepositorioEmpleado;
 
 @CrossOrigin(origins = "http://localhost:4200")

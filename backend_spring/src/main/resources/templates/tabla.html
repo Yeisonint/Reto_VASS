@@ -1,12 +1,18 @@
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <title>Base de datos</title>
+<!-- Bootstrap -->
+<link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<!-- Jquery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Estilo para login -->
+<link href="./public/table.css" rel="stylesheet">
 </head>
 <body>
 	<h1>Administradores</h1>
-	<table class="table table-striped">
+	<table class="table table-striped table-primary">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -18,13 +24,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="admin, iStat : ${administradores}">
-			<td th:text="${admin.getId()}"></td>
-            <td th:text="${admin.getUsuario()}"></td>
-            <td th:text="${admin.getSalario()}"></td>
-            <td th:text="${admin.getPorcentaje()}"></td>
-            <td th:text="${admin.getRol()}"></td>
-            <td th:text="${admin.isActivo()}"></td>
+			<tr th:each="admin, iStat : ${administradores}" th:style="${iStat.odd}? 'font-weight: normal;'">
+				<td th:text="${admin.getId()}"></td>
+				<td th:text="${admin.getUsuario()}"></td>
+				<td th:text="${admin.getSalario()}"></td>
+				<td th:text="${admin.getPorcentaje()}"></td>
+				<td th:text="${admin.getRol()}"></td>
+				<td th:text="${admin.isActivo()}"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -43,13 +49,13 @@
 		</thead>
 		<tbody>
 			<tr th:each="empl, iStat : ${empleados}">
-			<td th:text="${empl.getId()}"></td>
-            <td th:text="${empl.getUsuario()}"></td>
-			<td th:text="${empl.getJefeAsignado().getUsuario()}"></td>
-            <td th:text="${empl.getSalario()}"></td>
-            <td th:text="${empl.getPorcentaje()}"></td>
-            <td th:text="${empl.getRol()}"></td>
-            <td th:text="${empl.isActivo()}"></td>
+				<td th:text="${empl.getId()}"></td>
+				<td th:text="${empl.getUsuario()}"></td>
+				<td th:text="${empl.getJefeAsignado().getUsuario()}"></td>
+				<td th:text="${empl.getSalario()}"></td>
+				<td th:text="${empl.getPorcentaje()}"></td>
+				<td th:text="${empl.getRol()}"></td>
+				<td th:text="${empl.isActivo()}"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -67,12 +73,12 @@
 		</thead>
 		<tbody>
 			<tr th:each="jefe, iStat : ${jefes}">
-			<td th:text="${jefe.getId()}"></td>
-            <td th:text="${jefe.getUsuario()}"></td>
-            <td th:text="${jefe.getSalario()}"></td>
-            <td th:text="${jefe.getPorcentaje()}"></td>
-            <td th:text="${jefe.getRol()}"></td>
-            <td th:text="${jefe.isActivo()}"></td>
+				<td th:text="${jefe.getId()}"></td>
+				<td th:text="${jefe.getUsuario()}"></td>
+				<td th:text="${jefe.getSalario()}"></td>
+				<td th:text="${jefe.getPorcentaje()}"></td>
+				<td th:text="${jefe.getRol()}"></td>
+				<td th:text="${jefe.isActivo()}"></td>
 			</tr>
 		</tbody>
 	</table>

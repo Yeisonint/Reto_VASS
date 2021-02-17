@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,8 +14,6 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.yesh.reto.model.Administrador;
 import com.yesh.reto.model.Empleado;
 import com.yesh.reto.model.Jefe;
@@ -27,15 +27,18 @@ import org.springframework.ui.Model;
 public class ControladorWeb {
 	
 	@Autowired
-	public RepositorioAdministrador repositorioAdministrador;
-	public RepositorioJefe repositorioJefe;
-	public RepositorioEmpleado repositorioEmpleado;
+	private RepositorioAdministrador repositorioAdministrador;
+	@Autowired
+	private RepositorioJefe repositorioJefe;
+	@Autowired
+	private RepositorioEmpleado repositorioEmpleado;
+	
+	private static Logger logger = LogManager.getLogger(ControladorWeb.class);
 	
     // Página principal
     @RequestMapping("/")
-    @ResponseBody
     public String index() {
-        return "Has ingresado!";
+        return "index.html";
     }
 
     // Iniciar sesión
@@ -73,21 +76,21 @@ public class ControladorWeb {
 	        administradores =  repositorioAdministrador.findAll();
 	        
     	} catch(Exception e){
-    		System.out.println("Error Adm:"+e.getMessage());
+    		logger.error("Error al obtener los administradores desde el repositorio");
     	}
     	try {
 	        empleados =  repositorioEmpleado.findAll();
 	        
     	} catch(Exception e){
-    		System.out.println("Error Emp:"+e.getMessage());
+    		logger.error("Error al obtener los empleados desde el repositorio");
     	}
     	try {
-	        jefes =  repositorioJefe.findAll();
+    		jefes =  repositorioJefe.findAll();
 	        
     	} catch(Exception e){
-    		System.out.println("Error: Jef"+e.getMessage());
+    		logger.error("Error al obtener los jefes desde el repositorio");
     	}
-
+    	
         model.addAttribute("administradores", administradores);
         model.addAttribute("jefes", jefes);
         model.addAttribute("empleados", empleados);
