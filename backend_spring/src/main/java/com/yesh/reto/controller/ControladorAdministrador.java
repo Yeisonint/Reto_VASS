@@ -23,5 +23,4 @@ public class ControladorAdministrador {
 	public List<Administrador> getAllAdministradores() {
 		return repositorioAdministrador.findAll();
 	}
-	
 }

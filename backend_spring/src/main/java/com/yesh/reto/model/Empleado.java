@@ -1,16 +1,21 @@
 package com.yesh.reto.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="Empleados")
 public class Empleado extends Usuario {
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idJefe")
+	@JsonBackReference
 	private Jefe jefeAsignado;
 
 	public Empleado() {

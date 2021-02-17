@@ -42,6 +42,14 @@ public class Usuario {
 		this.rol = rol;
 		this.activo = activo;
 	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getUsuario() {
 		return usuario;

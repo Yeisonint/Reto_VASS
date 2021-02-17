@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yesh.reto.model.Jefe;
@@ -19,7 +19,7 @@ public class ControladorJefe {
 	public RepositorioJefe repositorioJefe;
 
 	// Obtener todos los jefes
-	@GetMapping("/jefes")
+	@RequestMapping(value = "/jefes", method = RequestMethod.GET, produces = "application/json")
 	public List<Jefe> getAllJefes() {
 		return repositorioJefe.findAll();
 	}

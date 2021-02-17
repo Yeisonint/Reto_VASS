@@ -1,0 +1,80 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Base de datos</title>
+</head>
+<body>
+	<h1>Administradores</h1>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Usuario</th>
+				<th>Salario</th>
+				<th>Porcentaje</th>
+				<th>Rol</th>
+				<th>Activo</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="admin, iStat : ${administradores}">
+			<td th:text="${admin.getId()}"></td>
+            <td th:text="${admin.getUsuario()}"></td>
+            <td th:text="${admin.getSalario()}"></td>
+            <td th:text="${admin.getPorcentaje()}"></td>
+            <td th:text="${admin.getRol()}"></td>
+            <td th:text="${admin.isActivo()}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<h1>Empleados</h1>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Usuario</th>
+				<th>Jefe</th>
+				<th>Salario</th>
+				<th>Porcentaje</th>
+				<th>Rol</th>
+				<th>Activo</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="empl, iStat : ${empleados}">
+			<td th:text="${empl.getId()}"></td>
+            <td th:text="${empl.getUsuario()}"></td>
+			<td th:text="${empl.getJefeAsignado().getUsuario()}"></td>
+            <td th:text="${empl.getSalario()}"></td>
+            <td th:text="${empl.getPorcentaje()}"></td>
+            <td th:text="${empl.getRol()}"></td>
+            <td th:text="${empl.isActivo()}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<h1>Jefes</h1>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Usuario</th>
+				<th>Salario</th>
+				<th>Porcentaje</th>
+				<th>Rol</th>
+				<th>Activo</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="jefe, iStat : ${jefes}">
+			<td th:text="${jefe.getId()}"></td>
+            <td th:text="${jefe.getUsuario()}"></td>
+            <td th:text="${jefe.getSalario()}"></td>
+            <td th:text="${jefe.getPorcentaje()}"></td>
+            <td th:text="${jefe.getRol()}"></td>
+            <td th:text="${jefe.isActivo()}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

@@ -20,20 +20,18 @@ public class ConfigSeguridad extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
 	    http
-		    .authorizeRequests()  
-	        .antMatchers( "/public/**").permitAll()  
-	        .anyRequest().authenticated()  
-	            .and()  
-	        .formLogin() 
-	            .loginPage("/login")  
+	    	.authorizeRequests().antMatchers("/public/**").permitAll().and()
+	    	.authorizeRequests().antMatchers("/h2-console/**").permitAll().and()
+	    	.authorizeRequests().antMatchers("/api/**").permitAll()
+	    	.anyRequest().authenticated()
+	    	.and().formLogin() 
+	            .loginPage("/login") 
 	            .failureUrl("/login-error")  
-	            .permitAll(); 
-	    http.csrf()
-        	.ignoringAntMatchers("/h2-console/**");
-	    
-	    http.headers()
-        	.frameOptions()
-        	.sameOrigin();
+	            .permitAll();
+	    http
+	    	.csrf().disable();
+	    http
+	    	.headers().frameOptions().disable();
 	}
     
 //    @Override
@@ -52,7 +50,7 @@ public class ConfigSeguridad extends WebSecurityConfigurerAdapter {
 		  // Añadir usuario que no esta en la base de datos como administrador (Pruebas)
 		  auth.inMemoryAuthentication().withUser("user").password("{noop}pass").roles("Administrador");
 		  
-		  // Añadir los administradores de la tabla de la
+		  // Añadir a todos los usuarios activos de la base de datos
 		  auth.jdbcAuthentication().dataSource(dataSource)
 	        .usersByUsernameQuery(
 	        		"SELECT USUARIO, CLAVE, ACTIVO FROM ADMINISTRADORES "

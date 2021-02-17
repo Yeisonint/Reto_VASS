@@ -4,14 +4,18 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="Jefes")
 public class Jefe extends Usuario {
 	
-	@OneToMany(mappedBy = "jefeAsignado", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "jefeAsignado", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private List<Empleado> empleados;
 	
 	public Jefe() {
