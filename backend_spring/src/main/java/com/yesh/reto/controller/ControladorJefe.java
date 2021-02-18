@@ -21,7 +21,7 @@ public class ControladorJefe {
 	public List<Jefe> getAllJefes() {
 		return repositorioJefe.findAll();
 	}
-	
+
 	// Implementación del CRUD para Jefes
 	// Obtener un solo elemento
     @GetMapping("/jefes/{id}")

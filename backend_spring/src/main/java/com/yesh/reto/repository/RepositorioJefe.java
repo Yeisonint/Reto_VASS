@@ -9,5 +9,5 @@ import com.yesh.reto.model.Jefe;
 @Repository
 @Transactional
 public interface RepositorioJefe extends JpaRepository<Jefe, Long> {
-
+	
 }

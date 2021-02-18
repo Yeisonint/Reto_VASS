@@ -1,37 +1,48 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Inicio</title>
-<!-- Bootstrap -->
-<link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<!-- Jquery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- Estilo para login -->
-<link href="./public/main.css" rel="stylesheet">
-<script src="./public/main.js"></script>
+	<title>Inicio</title>
+	<!-- Bootstrap -->
+	<link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+	<script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<!-- Jquery -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Estilo para login -->
+	<link href="./public/main.css" rel="stylesheet">
+	<script src="./public/main.js"></script>
 </head>
 <body>
-<div>
-	<h1>Hola <label th:text="${#authentication.name}"></h1>
+  <header>
+  <h1>Bienvenido!, <span sec:authentication="name"></h1>
+  <div th:if="${#authorization.expression('hasRole(''ROLE_Administrador'')')}">
+	  <h2>Eres un administrador, puedes crear Jefes y Empleados.</h2>
+  </div>
+  <div th:if="${#authorization.expression('hasRole(''ROLE_Jefe'')')}">
+	  <h2>Eres un Jefe, puedes crear Empleados.</h2>
+  </div>
+  <div th:if="${#authorization.expression('hasRole(''ROLE_Empleado'')')}">
+	  <h2>Eres un Empleado, puedes visualizar tu información.</h2>
+  </div>
+  </header>
+  <div id="main">
+    <article><div id="contenido"></div></article>
+    <nav>
 	<div th:if="${#authorization.expression('hasRole(''ROLE_Administrador'')')}">
-	  Eres un administrador, puedes crear Jefes y Empleados.
-	  <a href="nuevojefe">
-	   <input type="button" class="btn btn-primary" value="Añadir Jefes" />
-	  </a>
-	  <a href="nuevoempleado">
-	   <input type="button" class="btn btn-primary" value="Añadir Empleados" />
-	  </a>
+	  <input type="button" onclick="load_nuevojefe()" class="btn btn-info" value="Añadir Jefes" />
+	  <input type="button" onclick="load_nuevoempleado()" class="btn btn-primary" value="Añadir Empleados" />
 	</div>
 	<div th:if="${#authorization.expression('hasRole(''ROLE_Jefe'')')}">
-	  Eres un Jefe y puedes crear Empleados.
+	  <a href="nuevoempleado"><input type="button" class="btn btn-primary" value="Añadir Empleados" /></a>
 	</div>
-	<div th:if="${#authorization.expression('hasRole(''ROLE_Empleado'')')}">
-	  Eres un Empleado, puedes visualizar los miembros de tu empresa.
-	</div>
-	<a href="/logout">
-	   <input type="button" class="btn btn-danger" value="Cerrar sesión" />
-	</a>
-	<div id="database"></div>
-</div>
+	<input type="button" onclick="infousuario()" class="btn btn-danger" value="Solicitar información" />
+	<a href="/logout"><input type="button" class="btn btn-danger" value="Cerrar sesión" /></a>
+    </nav>
+    <aside>
+    	<span sec:authentication="principal.authorities">Roles</span>
+    </aside>
+  </div>
+  <footer>
+  <div th:if="${#authorization.expression('hasRole(''ROLE_Administrador'')')}">
+	  <div id="database"></div>
+  </div>
+  </footer>
 </body>
-</html>
