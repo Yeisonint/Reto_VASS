@@ -40,6 +40,20 @@ public class ControladorWeb {
     public String index() {
         return "index.html";
     }
+    
+    @RequestMapping("/nuevojefe")
+    public String nuevojefe(Model model) {
+        Jefe jefe = new Jefe();
+        model.addAttribute("jefe", jefe);
+        return "nuevojefe.html";
+    }
+    @RequestMapping("/nuevoempleado")
+    public String nuevoempleado(Model model) {
+        Empleado empleado = new Empleado();
+        long idjefe=0;
+        model.addAttribute("empleado", empleado);
+        return "nuevoempleado.html";
+    }
 
     // Iniciar sesión
     @RequestMapping("/login")

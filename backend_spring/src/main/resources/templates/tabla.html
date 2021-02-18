@@ -56,6 +56,10 @@
 				<td th:text="${empl.getPorcentaje()}"></td>
 				<td th:text="${empl.getRol()}"></td>
 				<td th:text="${empl.isActivo()}"></td>
+				<td>
+                    <a th:href="@{/api/v1/empleados/editar/{id}(id=${empl.getId()})}">Editar</a>
+                    <a th:href="@{/api/v1/empleados/eliminar/{id}(id=${empl.getId()})}">Eliminar</a>
+                </td>
 			</tr>
 		</tbody>
 	</table>
@@ -79,6 +83,10 @@
 				<td th:text="${jefe.getPorcentaje()}"></td>
 				<td th:text="${jefe.getRol()}"></td>
 				<td th:text="${jefe.isActivo()}"></td>
+				<td>
+                    <a th:href="@{/api/v1/jefes/editar/{id}(id=${jefe.getId()})}">Editar</a>
+                    <a th:href="@{/api/v1/jefes/eliminar/{id}(id=${jefe.getId()})}">Eliminar</a>
+                </td>
 			</tr>
 		</tbody>
 	</table>

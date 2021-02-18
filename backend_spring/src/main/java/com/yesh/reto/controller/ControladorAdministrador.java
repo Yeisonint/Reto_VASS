@@ -3,20 +3,11 @@ package com.yesh.reto.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.yesh.reto.model.Administrador;
 import com.yesh.reto.repository.RepositorioAdministrador;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/")
 public class ControladorAdministrador {
@@ -29,27 +20,53 @@ public class ControladorAdministrador {
 		return repositorioAdministrador.findAll();
 	}
 	
+	// Implementación del CRUD para Administradores
+	// Obtener un solo elemento
     @GetMapping("/administradores/{id}")
-    private Administrador getPerson(@PathVariable("id") long id) {
+    private Administrador obtenerAdministrador(@PathVariable("id") long id) {
         return repositorioAdministrador.findById(id).get();
     }
-
+    
+    // Eliminar un elemento por su id
     @DeleteMapping("/administradores/{id}")
-    private void deleteAdministrador(@PathVariable("id") long id) {
+    private void eliminareAdministrador(@PathVariable("id") long id) {
     	repositorioAdministrador.deleteById(id);
-    }
-
-    @PostMapping("/administradores")
-    private long guardarAdministrador(@RequestBody Administrador admin) {
-    	guardarOActualizar(admin);
-        return admin.getId();
     }
     
-    public void guardarOActualizar(Administrador admin) {
-    	repositorioAdministrador.save(admin);
+    // Almacenar un nuevo elemento
+    @PostMapping("/administradores")
+    private long guardarAdministrador(@RequestParam("usuario")String usuario,
+    		@RequestParam("clave")String clave,
+    		@RequestParam("salario")long salario,
+    		@RequestParam("porcentaje")float porcentaje,
+    		@RequestParam("activo")boolean activo) {
+    	Administrador admin = new Administrador(usuario,clave,salario,porcentaje,activo);
+    	try {
+    		repositorioAdministrador.save(admin);
+    		return admin.getId();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return -1;
+		}
+    	
     }
-
-    public void eliminarAdministrador(long id) {
-    	repositorioAdministrador.deleteById(id);
+    
+    // Actualizar un elemento
+    @PutMapping("/administradores")
+    private long actualizarAdministrador(@RequestParam("id")long id,
+    		@RequestParam("usuario")String usuario,
+    		@RequestParam("clave")String clave,
+    		@RequestParam("salario")long salario,
+    		@RequestParam("porcentaje")float porcentaje,
+    		@RequestParam("activo")boolean activo) {
+    	Administrador admin = new Administrador(usuario,clave,salario,porcentaje,activo);
+    	try {
+    		repositorioAdministrador.save(admin);
+    		return admin.getId();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return -1;
+		}
+    	
     }
 }

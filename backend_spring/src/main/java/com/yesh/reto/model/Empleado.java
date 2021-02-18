@@ -17,6 +17,16 @@ public class Empleado extends Usuario {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonBackReference
 	private Jefe jefeAsignado;
+	
+	private long idJefe;
+
+	public long getIdJefe() {
+		return idJefe;
+	}
+
+	public void setIdJefe(long idJefe) {
+		this.idJefe = idJefe;
+	}
 
 	public Empleado() {
 		super();
@@ -25,6 +35,11 @@ public class Empleado extends Usuario {
 	public Empleado(String usuario, String clave, long salario, float porcentaje, boolean activo, Jefe jefe) {
 		super(usuario, clave, salario, porcentaje, "Empleado", activo);
 		setJefeAsignado(jefe);
+		this.idJefe = jefe.getId();
+	}
+	public Empleado(String usuario, String clave, long salario, float porcentaje, boolean activo, long idjefe) {
+		super(usuario, clave, salario, porcentaje, "Empleado", activo);
+		this.idJefe = idjefe;
 	}
 
 	public Jefe getJefeAsignado() {

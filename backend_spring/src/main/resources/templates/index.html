@@ -15,6 +15,12 @@
 	<h1>Hola <label th:text="${#authentication.name}"></h1>
 	<div th:if="${#authorization.expression('hasRole(''ROLE_Administrador'')')}">
 	  Eres un administrador, puedes crear Jefes y Empleados.
+	  <a href="nuevojefe">
+	   <input type="button" class="btn btn-primary" value="Añadir Jefes" />
+	  </a>
+	  <a href="nuevoempleado">
+	   <input type="button" class="btn btn-primary" value="Añadir Empleados" />
+	  </a>
 	</div>
 	<div th:if="${#authorization.expression('hasRole(''ROLE_Jefe'')')}">
 	  Eres un Jefe y puedes crear Empleados.
@@ -23,7 +29,7 @@
 	  Eres un Empleado, puedes visualizar los miembros de tu empresa.
 	</div>
 	<a href="/logout">
-	   <input type="button" class="btn btn-primary" value="Cerrar sesión" />
+	   <input type="button" class="btn btn-danger" value="Cerrar sesión" />
 	</a>
 	<div id="database"></div>
 </div>
