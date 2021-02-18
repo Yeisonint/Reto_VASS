@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Create New Product</title>
+</head>
+<body>
+    <div align="center">
+        <h1>Editar un Jefe existente</h1>
+        <br />
+		<form action="/" th:action="@{/api/v1/jefes/agregar}" th:object="${jefe}" method="post">
+            <table border="0" cellpadding="10">
+                <td>ID Jefe:</td>
+                <td>
+                        <input type="text" th:field="*{id}" readonly="readonly" />
+                </td>
+                <tr>
+                    <td>Usuario:</td>
+                    <td><input type="text" th:field="*{usuario}" /></td>
+                </tr>
+                <tr>
+                    <td>Clave:</td>
+                    <td><input type="text" th:field="*{clave}" /></td>
+                </tr>
+                <tr>
+                    <td>Salario:</td>
+                    <td><input type="text" min="0" th:field="*{salario}" /></td>
+                </tr>
+                <tr>
+                    <td>Porcentaje:</td>
+                    <td><input type="number" min="0" max="100" th:field="*{porcentaje}" /></td>
+                </tr>         
+                <tr>
+                    <td>Activo:</td>
+                    <td><input type="checkbox" th:field="*{activo}" /></td>
+                </tr>                    
+                <tr>
+                    <td colspan="2"><button type="submit">Guardar</button> </td>
+                </tr>
+            </table>
+            <a href="/">Regresar</a>
+        </form>
+
+    </div>
+</body>
+</html>
