@@ -8,7 +8,7 @@ git clone https://github.com/Yeisonint/Reto_VASS.git
 
 ### Iniciar el servidor 🔧
 
-Ejecuta una terminal en la carpeta donde esta el repositorio y ejecuta:
+Ejecuta una terminal en la carpeta backend_spring dentro del repositorio y ejecuta:
 
 Linux
 ```
